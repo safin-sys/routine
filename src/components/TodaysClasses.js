@@ -1,23 +1,28 @@
 import { Box, Heading, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import getSectionName from '../helper/getSectionName'
 
-export const TodaysClasses = () => {
+export const TodaysClasses = ({ holiday, days }) => {
 	return (
 		<>
-			<Box my="12">
-				<Heading>No Classes Today.</Heading>
-				<Text>Class is suspended due to the examination of honours 4th year.</Text>
-			</Box>
-			<ClassTable />
+			{
+				holiday != null ?
+					<Box my="12">
+						<Heading>No Classes Today.</Heading>
+						<Text>Reason: {holiday.name}.</Text>
+					</Box> : ''
+			}
+			<ClassTable days={days} />
 		</>
 	);
 }
 
 
-function ClassTable() {
+function ClassTable({ days }) {
+	console.log(days);
 	return (
 		<>
-			<Heading fontSize="sm" my="4">12/02/22, Section {getSectionName()}</Heading>
+			<Heading fontSize="sm" my="4">Next Class</Heading>
+			<Heading fontSize="sm" mb="4">12/02/22, Section {getSectionName()}</Heading>
 			<Table size="sm" p="0" m="0">
 				<Thead>
 					<Tr>

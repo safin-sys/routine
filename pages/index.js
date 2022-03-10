@@ -3,6 +3,7 @@ import Head from 'next/head'
 import client from '../src/helper/sanity'
 import { TodaysClasses } from '../src/components/TodaysClasses'
 import Nav from '../src/components/Nav'
+import { useState, useEffect } from 'react'
 
 export const getStaticProps = async () => {
 	const days = await client.fetch('*[_type == "days"]')
@@ -16,7 +17,21 @@ export const getStaticProps = async () => {
 }
 
 export default function Home({ days, holidays }) {
-	console.log(holidays);
+	const [holiday, setHoliday] = useState(null)
+
+	useEffect(() => {
+		const today = new Date();
+
+		for (let i = 0; i < holidays.length; i++) {
+			const nestedArr = holidays[i].listOfHolidays
+			for (let j = 0; j < nestedArr.length; j++) {
+				if (today.setHours(0, 0, 0, 0) == new Date(nestedArr[j]).setHours(0, 0, 0, 0)) {
+					setHoliday(holidays[i])
+				}
+			}
+		}
+	}, [])
+	
 	return (
 		<>
 			<Head>
@@ -26,7 +41,7 @@ export default function Home({ days, holidays }) {
 			</Head>
 			<Container>
 				<Nav />
-				<TodaysClasses />
+				<TodaysClasses holiday={holiday} days={days} />
 			</Container>
 		</>
 	)
