@@ -1,16 +1,23 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, IconButton, Image, useColorMode } from "@chakra-ui/react";
 
 const Nav = () => {
-    return ( 
+    const { colorMode, toggleColorMode } = useColorMode()
+    return (
         <Flex as="nav" h="48px" borderBottom="1px" alignItems="center" justifyContent="space-between" >
             <Heading fontSize="md">
                 Marketing Routine
             </Heading>
-            <Text fontSize="md">
-                Gov. Titumir College
-            </Text>
+            <IconButton
+                onClick={toggleColorMode}
+                aria-label='Toggle Theme'
+                icon={
+                    colorMode === "dark" ?
+                        <Image src="/sun.svg" filter="invert(100%)" /> :
+                        <img src="/moon.svg" />
+                }
+            />
         </Flex>
     );
 }
- 
+
 export default Nav;

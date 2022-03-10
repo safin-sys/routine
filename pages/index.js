@@ -1,20 +1,22 @@
-import { Container, Heading } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import Head from 'next/head'
 import client from '../src/helper/sanity'
 import { TodaysClasses } from '../src/components/TodaysClasses'
 import Nav from '../src/components/Nav'
-import getSectionName from '../src/helper/getSectionName'
 
-// export const getStaticProps = async () => {
-// 	const days = await client.fetch('*[_type == "days"]')
-// 	return {
-// 		props: {
-// 			days
-// 		}
-// 	}
-// }
+export const getStaticProps = async () => {
+	const days = await client.fetch('*[_type == "days"]')
+	const holidays = await client.fetch('*[_type == "holidays"]')
+	return {
+		props: {
+			days,
+			holidays
+		}
+	}
+}
 
-export default function Home({ days }) {
+export default function Home({ days, holidays }) {
+	console.log(holidays);
 	return (
 		<>
 			<Head>
@@ -24,7 +26,6 @@ export default function Home({ days }) {
 			</Head>
 			<Container>
 				<Nav />
-				<Heading fontSize="md" my="4">Section {getSectionName()}</Heading>
 				<TodaysClasses />
 			</Container>
 		</>
