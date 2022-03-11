@@ -1,10 +1,10 @@
-import { Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-import getSectionName from '../helper/getSectionName';
+import { Heading, Table, Tbody, Td, Th, Thead, Tooltip, Tr } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 
-export const ClassTable = ({ days, holidayList }) => {
+export const ClassTable = ({ day }) => {
 	return (
 		<>
-			<Heading fontSize="sm" mb="4">12/02/22, Section {getSectionName("02/12/22")}</Heading>
+			<Heading fontSize="sm" mb="4">{dayjs().format("dddd, DD/MMM/YY")}</Heading>
 			<Table size="sm" p="0" m="0">
 				<Thead>
 					<Tr>
@@ -14,26 +14,45 @@ export const ClassTable = ({ days, holidayList }) => {
 					</Tr>
 				</Thead>
 				<Tbody>
-					<Tr>
-						<Td>8.45</Td>
-						<Td>9.30</Td>
-						<Td>Business</Td>
-						<Td>MI</Td>
-					</Tr>
-					<Tr>
-						<Td>9.30</Td>
-						<Td>10.15</Td>
-						<Td>Computer</Td>
-						<Td>SJT</Td>
-					</Tr>
-					<Tr>
-						<Td>10.15</Td>
-						<Td>11.00</Td>
-						<Td>Accounting</Td>
-						<Td>MZ</Td>
-					</Tr>
+					{
+						day && day.map(routine => {
+							return (
+								<TableRow
+									key={routine._key}
+									routine={routine}
+								/>
+							)
+						})
+					}
 				</Tbody>
 			</Table>
 		</>
 	);
 };
+
+const TableRow = ({ routine }) => {
+	const { subject, teacher, period } = routine;
+	const getPeriodTime = (end) => {
+		const classStart = dayjs().hour(8).minute(45)
+		return dayjs(classStart).add((end ? period : period - 1) * 45, 'm').format("hh:mma");
+	}
+	function shortenName(name) {
+		'use strict'
+
+		return name
+			.replace(/\b(\w)\w+/g, '$1')
+			.replace(/\s/g, '')
+			.replace(/\.$/, '')
+			.toUpperCase();
+	}
+	return (
+		<Tr>
+			<Td>{getPeriodTime()}</Td>
+			<Td>{getPeriodTime(true)}</Td>
+			<Td>{subject}</Td>
+			<Tooltip label={teacher}>
+				<Td>{shortenName(teacher)}</Td>
+			</Tooltip>
+		</Tr>
+	)
+}
