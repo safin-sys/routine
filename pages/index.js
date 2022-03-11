@@ -18,20 +18,27 @@ export const getStaticProps = async () => {
 
 export default function Home({ days, holidays }) {
 	const [holiday, setHoliday] = useState(null)
+	const [holidayList, setHolidayList] = useState([])
+	const [friday, setFriday] = useState(null)
 
 	useEffect(() => {
 		const today = new Date();
 
+		const isFriday = today.getDay() === 5 ? true : false
+		setFriday(isFriday)
+
+		setHolidayList([])
 		for (let i = 0; i < holidays.length; i++) {
 			const nestedArr = holidays[i].listOfHolidays
 			for (let j = 0; j < nestedArr.length; j++) {
 				if (today.setHours(0, 0, 0, 0) == new Date(nestedArr[j]).setHours(0, 0, 0, 0)) {
 					setHoliday(holidays[i])
 				}
+				setHolidayList(prev => [...prev, nestedArr[j]])
 			}
 		}
 	}, [])
-	
+
 	return (
 		<>
 			<Head>
@@ -41,7 +48,12 @@ export default function Home({ days, holidays }) {
 			</Head>
 			<Container>
 				<Nav />
-				<TodaysClasses holiday={holiday} days={days} />
+				<TodaysClasses
+					holiday={holiday}
+					days={days}
+					holidayList={holidayList}
+					friday={friday}
+				/>
 			</Container>
 		</>
 	)

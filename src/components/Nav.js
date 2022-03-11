@@ -15,6 +15,8 @@ const Nav = () => {
                         <Image src="/sun.svg" filter="invert(100%)" /> :
                         <img src="/moon.svg" />
                 }
+                bgColor="transparent"
+                _focus={{ outline: "none" }}
             />
         </Flex>
     );

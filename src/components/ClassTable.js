@@ -1,11 +1,9 @@
 import { Heading, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import getSectionName from '../helper/getSectionName';
 
-export const ClassTable = ({ days }) => {
-	console.log(days);
+export const ClassTable = ({ days, holidayList }) => {
 	return (
 		<>
-			<Heading fontSize="sm" my="4">Next Class</Heading>
 			<Heading fontSize="sm" mb="4">12/02/22, Section {getSectionName("02/12/22")}</Heading>
 			<Table size="sm" p="0" m="0">
 				<Thead>
