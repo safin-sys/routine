@@ -43,8 +43,15 @@ const TableRow = ({ routine }) => {
 			.replace(/\.$/, '')
 			.toUpperCase();
 	}
+	const isClassLive = () => {
+		const isBtwn = dayjs().format('HH') < '14' ?
+			getPeriodTime() < dayjs().format("hh:mma") && getPeriodTime(true) >= dayjs().format("hh:mma") :
+			''
+
+		return isBtwn ? "green.400" : "inherit"
+	}
 	return (
-		<Tr>
+		<Tr bgColor={isClassLive()}>
 			<Td>{getPeriodTime()}</Td>
 			<Td>{getPeriodTime(true)}</Td>
 			<Td>{subject}</Td>
