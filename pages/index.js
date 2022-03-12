@@ -5,6 +5,7 @@ import { TodaysClasses } from '../src/components/TodaysClasses'
 import Nav from '../src/components/Nav'
 import { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
+import NextClass from '../src/components/NextClass'
 
 export const getStaticProps = async () => {
 	const days = await client.fetch('*[_type == "days"]')
@@ -67,6 +68,9 @@ export default function Home({ days, holidays }) {
 					day={day}
 					holidayList={holidayList}
 					friday={friday}
+				/>
+				<NextClass
+					holidayList={holidayList}
 				/>
 			</Container>
 		</>

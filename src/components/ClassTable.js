@@ -37,8 +37,6 @@ const TableRow = ({ routine }) => {
 		return dayjs(classStart).add((end ? period : period - 1) * 45, 'm').format("hh:mma");
 	}
 	function shortenName(name) {
-		'use strict'
-
 		return name
 			.replace(/\b(\w)\w+/g, '$1')
 			.replace(/\s/g, '')
