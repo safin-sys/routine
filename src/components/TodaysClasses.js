@@ -1,7 +1,7 @@
 import { ClassTable } from './ClassTable';
 import { Hero } from './Hero';
 
-export const TodaysClasses = ({ holiday, day, holidayList, friday }) => {
+export const TodaysClasses = ({ holiday, day, friday }) => {
 	return (
 		<>
 			<Hero
@@ -13,7 +13,6 @@ export const TodaysClasses = ({ holiday, day, holidayList, friday }) => {
 					'' :
 					<ClassTable
 						day={day}
-						holidayList={holidayList}
 					/>
 			}
 		</>

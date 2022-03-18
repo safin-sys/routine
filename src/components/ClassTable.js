@@ -1,11 +1,14 @@
 import { Heading, Table, Tbody, Td, Th, Thead, Tooltip, Tr } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 
-export const ClassTable = ({ day }) => {
+export const ClassTable = ({ day, name }) => {
 	return (
 		<>
-			<Heading fontSize="sm" mb="4">{dayjs().format("dddd, DD/MMM/YY")}</Heading>
-			<Table size="sm" p="0" m="0">
+			<Heading fontSize="sm" mb="4">{
+				name ? name :
+					dayjs().format("dddd, DD/MMM/YY")
+			}</Heading>
+			<Table size="sm" p="0" mb="8">
 				<Thead>
 					<Tr>
 						<Th colSpan="2">Time</Th>
@@ -43,15 +46,8 @@ const TableRow = ({ routine }) => {
 			.replace(/\.$/, '')
 			.toUpperCase();
 	}
-	const isClassLive = () => {
-		const isBtwn = dayjs().format('HH') < '14' ?
-			getPeriodTime() < dayjs().format("hh:mma") && getPeriodTime(true) >= dayjs().format("hh:mma") :
-			''
-
-		return isBtwn ? "green.400" : "inherit"
-	}
 	return (
-		<Tr bgColor={isClassLive()}>
+		<Tr>
 			<Td>{getPeriodTime()}</Td>
 			<Td>{getPeriodTime(true)}</Td>
 			<Td>{subject}</Td>
