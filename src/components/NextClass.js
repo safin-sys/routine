@@ -8,7 +8,7 @@ const NextClass = ({ holidayList }) => {
     useEffect(() => {
         let i = 1;
         const getNextDate = () => {
-            if (!holidayList.includes(addToDay(i))) {
+            if (!holidayList.includes(addToDay(i)) && dayjs(addToDay(i)).day() != 5) {
                 setClassDate(addToDay(i))
             } else {
                 i++
